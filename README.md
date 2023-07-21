@@ -1,5 +1,8 @@
 # password_strength_indicator
 
+<a href="https://pub.dev/packages/password_strength_indicator">
+<img src="https://img.shields.io/pub/v/password_strength_indicator?label=password_strength_indicator" alt="password_strength_indicator version">
+</a>
 <a href="https://github.com/Thaanu2001/password-strength-indicator/stargazers">
 <img src="https://img.shields.io/github/stars/Thaanu2001/password-strength-indicator?style=social" alt="flutter_draggable_gridview Git Stars">
 </a>
