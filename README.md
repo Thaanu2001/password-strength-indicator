@@ -50,10 +50,10 @@ Import the package:
 import 'package:password_strength_indicator/password_strength_indicator.dart';
 ```
 
-To use the `PasswordStrengthChecker` widget, simply provide the desired parameters:
+To use the `PasswordStrengthIndicator` widget, simply provide the desired parameters:
 
 ```dart
-PasswordStrengthChecker(
+PasswordStrengthIndicator(
   width: 200, // Change the width of the strength bar
   thickness: 12, // Change the thickness of the strength bar
   backgroundColor: Colors.grey, // Change the background color of the strength bar
