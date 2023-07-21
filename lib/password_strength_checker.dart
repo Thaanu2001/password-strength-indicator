@@ -1,17 +1,29 @@
 library password_strength_checker;
 
 import 'package:flutter/material.dart';
+import 'package:password_strength_checker/painter/strength_bar_dashed_painter.dart';
+import 'package:password_strength_checker/util/strength_bar_style.dart';
 
 import 'painter/strength_bar_background_painter.dart';
 import 'painter/strength_bar_painter.dart';
 import 'password_strength/password_strength.dart';
 import 'util/strength_colors.dart';
 
+/// Password strength checker widget for Flutter applications.
+/// It estimates the strength of the password and displays it in a strength bar.
+/// It also provides a callback to get the strength of the password.
+/// It can be customized by changing the width, thickness, background color,
+/// radius, colors, duration, and curve.
+/// The strength bar is drawn using the [CustomPaint] widget.
+/// The strength bar is drawn using the [StrengthBarPainter] widget.
+/// The background of the strength bar is drawn using
+/// the [StrengthBarBackgroundPainter] widget.
+/// The strength of the password is estimated using the [estimatePasswordStrength] function.
 class PasswordStrengthChecker extends StatefulWidget {
   final String? password;
 
   // Width of the strength bar
-  final double width;
+  final double? width;
 
   // Thickness of the strength bar
   final double thickness;
@@ -34,17 +46,25 @@ class PasswordStrengthChecker extends StatefulWidget {
   // Strength callback
   final void Function(double strength)? callback;
 
+  // Strength builder
+  final double Function(String password)? strengthBuilder;
+
+  // Style of the strength bar
+  final StrengthBarStyle style;
+
   const PasswordStrengthChecker({
     super.key,
     required this.password,
-    this.width = double.infinity,
-    this.thickness = 5.0,
-    this.backgroundColor = Colors.grey,
+    this.width,
+    this.thickness = 8.0,
+    this.backgroundColor = const Color.fromARGB(255, 217, 217, 217),
     this.radius = 5.0,
     this.colors = const StrengthColors(),
-    this.duration,
+    this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.easeInOut,
     this.callback,
+    this.strengthBuilder,
+    this.style = StrengthBarStyle.line,
   });
 
   @override
@@ -64,7 +84,7 @@ class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
   late double _strength;
 
   // Width of the strength bar
-  late double _width;
+  late double? _width;
 
   // Thickness of the strength bar
   late double _thickness;
@@ -81,6 +101,9 @@ class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
   // Strength callback
   void Function(double strength)? _callback;
 
+  // Strength builder
+  double Function(String password)? _strengthBuilder;
+
   // begin of the animation
   late double _begin = 0.0;
 
@@ -89,6 +112,9 @@ class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
 
   // Active color of the strength bar
   late Color _activeColor;
+
+  // Strength bar style
+  late StrengthBarStyle _style;
 
   @override
   void initState() {
@@ -127,8 +153,14 @@ class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
     // Initialize the callback
     _callback = widget.callback;
 
+    // Initialize the strength builder
+    _strengthBuilder = widget.strengthBuilder;
+
     // Initialize the active color
     _activeColor = _colors.getColor(_strength);
+
+    // Initialize the style
+    _style = widget.style;
 
     // Start the animation
     _animationController.forward();
@@ -136,10 +168,12 @@ class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
 
   void animate() {
     // Calculate the strength
-    _strength = estimatePasswordStrength(widget.password ?? '');
+    _strength = _strengthBuilder != null
+        ? _strengthBuilder!(widget.password ?? '')
+        : estimatePasswordStrength(widget.password ?? '');
 
-    _begin = 0.0;
-    _end = _strength * _width;
+    _begin = _end;
+    _end = _strength * 100;
 
     // Calculate the active color
     _activeColor = _colors.getColor(_strength);
@@ -156,7 +190,7 @@ class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
     );
 
     // Start the animation
-    _animationController.forward(from: 0.0);
+    _animationController.forward(from: 0);
 
     // Call the callback
     _callback?.call(_strength);
@@ -185,14 +219,16 @@ class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
       thickness: _thickness,
       backgroundColor: _backgroundColor,
       radius: _radius,
+      colors: _colors,
       activeColor: _activeColor,
+      style: _style,
     );
   }
 }
 
 class StrengthBar extends AnimatedWidget {
   // Width of the strength bar
-  final double width;
+  final double? width;
 
   // Thickness of the strength bar
   final double thickness;
@@ -203,8 +239,14 @@ class StrengthBar extends AnimatedWidget {
   // Radius of the strength bar
   final double radius;
 
+  // Colors of the strength bar
+  final StrengthColors colors;
+
   // Active color of the strength bar
   final Color activeColor;
+
+  // Style of the strength bar
+  final StrengthBarStyle style;
 
   const StrengthBar({
     Key? key,
@@ -213,25 +255,82 @@ class StrengthBar extends AnimatedWidget {
     required this.thickness,
     required this.backgroundColor,
     required this.radius,
+    required this.colors,
     required this.activeColor,
+    required this.style,
   }) : super(key: key, listenable: animation);
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return CustomPaint(
-          size: Size(width, thickness),
-          painter: StrengthBarBackgroundPainter(
-            color: backgroundColor,
-            radius: radius,
-          ),
-          foregroundPainter: StrengthBarPainter(
-            color: activeColor,
-            radius: radius,
-            percentage: (listenable as Animation<double>).value,
-          ),
-        );
+        switch (style) {
+          case StrengthBarStyle.line:
+            return CustomPaint(
+              size: Size(width ?? constraints.maxWidth, thickness),
+              painter: StrengthBarBackgroundPainter(
+                color: backgroundColor,
+                radius: radius,
+              ),
+              foregroundPainter: StrengthBarPainter(
+                color: activeColor,
+                radius: radius,
+                percentage: (listenable as Animation<double>).value,
+              ),
+            );
+          case StrengthBarStyle.dashed:
+            return Row(
+              children: [
+                Flexible(
+                  child: CustomPaint(
+                    size: Size(width ?? constraints.maxWidth, thickness),
+                    painter: StrengthBarBackgroundPainter(
+                      color: backgroundColor,
+                      radius: radius,
+                    ),
+                    foregroundPainter: StrengthBarDashedBarPainter(
+                      color: colors.weak,
+                      radius: radius,
+                      dashCount: 1,
+                      percentage: (listenable as Animation<double>).value,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: CustomPaint(
+                    size: Size(width ?? constraints.maxWidth, thickness),
+                    painter: StrengthBarBackgroundPainter(
+                      color: backgroundColor,
+                      radius: radius,
+                    ),
+                    foregroundPainter: StrengthBarDashedBarPainter(
+                      color: colors.medium,
+                      radius: radius,
+                      dashCount: 2,
+                      percentage: (listenable as Animation<double>).value,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: CustomPaint(
+                    size: Size(width ?? constraints.maxWidth, thickness),
+                    painter: StrengthBarBackgroundPainter(
+                      color: backgroundColor,
+                      radius: radius,
+                    ),
+                    foregroundPainter: StrengthBarDashedBarPainter(
+                      color: colors.strong,
+                      radius: radius,
+                      dashCount: 3,
+                      percentage: (listenable as Animation<double>).value,
+                    ),
+                  ),
+                ),
+              ],
+            );
+        }
       },
     );
   }

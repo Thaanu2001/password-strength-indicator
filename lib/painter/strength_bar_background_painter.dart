@@ -28,7 +28,7 @@ class StrengthBarBackgroundPainter extends CustomPainter {
       ..color = color
       ..strokeWidth = size.height
       ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
+      ..style = PaintingStyle.fill;
 
     // Size of the background
     double left = 0;
@@ -38,13 +38,9 @@ class StrengthBarBackgroundPainter extends CustomPainter {
 
     // Draw the background
     canvas.drawRRect(
-      RRect.fromLTRBAndCorners(
-        left,
-        top,
-        right,
-        bottom,
-        topLeft: Radius.circular(radius),
-        bottomLeft: Radius.circular(radius),
+      RRect.fromRectAndRadius(
+        Rect.fromLTRB(left, top, right, bottom),
+        Radius.circular(radius),
       ),
       paint,
     );

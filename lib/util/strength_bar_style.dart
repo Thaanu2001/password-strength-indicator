@@ -1,0 +1,1 @@
+enum StrengthBarStyle { line, dashed }
