@@ -1,15 +1,15 @@
-library password_strength_checker;
+library password_strength_indicator;
 
 import 'package:flutter/material.dart';
-import 'package:password_strength_checker/painter/strength_bar_dashed_painter.dart';
-import 'package:password_strength_checker/util/strength_bar_style.dart';
 
 import 'painter/strength_bar_background_painter.dart';
+import 'painter/strength_bar_dashed_painter.dart';
 import 'painter/strength_bar_painter.dart';
 import 'password_strength/password_strength.dart';
+import 'util/strength_bar_style.dart';
 import 'util/strength_colors.dart';
 
-/// Password strength checker widget for Flutter applications.
+/// Password strength indicator widget for Flutter applications.
 /// It estimates the strength of the password and displays it in a strength bar.
 /// It also provides a callback to get the strength of the password.
 /// It can be customized by changing the width, thickness, background color,
@@ -19,7 +19,7 @@ import 'util/strength_colors.dart';
 /// The background of the strength bar is drawn using
 /// the [StrengthBarBackgroundPainter] widget.
 /// The strength of the password is estimated using the [estimatePasswordStrength] function.
-class PasswordStrengthChecker extends StatefulWidget {
+class PasswordStrengthIndicator extends StatefulWidget {
   final String? password;
 
   // Width of the strength bar
@@ -52,7 +52,7 @@ class PasswordStrengthChecker extends StatefulWidget {
   // Style of the strength bar
   final StrengthBarStyle style;
 
-  const PasswordStrengthChecker({
+  const PasswordStrengthIndicator({
     super.key,
     required this.password,
     this.width,
@@ -68,11 +68,11 @@ class PasswordStrengthChecker extends StatefulWidget {
   });
 
   @override
-  State<PasswordStrengthChecker> createState() =>
-      _PasswordStrengthCheckerState();
+  State<PasswordStrengthIndicator> createState() =>
+      _PasswordStrengthIndicatorState();
 }
 
-class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
+class _PasswordStrengthIndicatorState extends State<PasswordStrengthIndicator>
     with SingleTickerProviderStateMixin {
   // Animation controller of the strength bar
   late AnimationController _animationController;
@@ -197,7 +197,7 @@ class _PasswordStrengthCheckerState extends State<PasswordStrengthChecker>
   }
 
   @override
-  void didUpdateWidget(covariant PasswordStrengthChecker oldWidget) {
+  void didUpdateWidget(covariant PasswordStrengthIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.password != widget.password) {

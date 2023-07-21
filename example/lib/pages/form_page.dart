@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:password_strength_checker/password_strength_checker.dart';
-import 'package:password_strength_checker/util/strength_bar_style.dart';
-import 'package:password_strength_checker/util/strength_colors.dart';
+import 'package:password_strength_indicator/password_strength_indicator.dart';
+import 'package:password_strength_indicator/util/strength_bar_style.dart';
+import 'package:password_strength_indicator/util/strength_colors.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -17,7 +17,7 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Password Strength Checker'),
+        title: const Text('Password Strength Indicator'),
         elevation: 0,
       ),
       body: SafeArea(
@@ -37,20 +37,20 @@ class _FormPageState extends State<FormPage> {
               const SizedBox(height: 50),
               const Text('Default style'),
               const SizedBox(height: 8),
-              PasswordStrengthChecker(
+              PasswordStrengthIndicator(
                 password: password,
               ),
               const SizedBox(height: 50),
               const Text('Dashed style'),
               const SizedBox(height: 8),
-              PasswordStrengthChecker(
+              PasswordStrengthIndicator(
                 password: password,
                 style: StrengthBarStyle.dashed,
               ),
               const SizedBox(height: 50),
               const Text('Custom colors'),
               const SizedBox(height: 8),
-              PasswordStrengthChecker(
+              PasswordStrengthIndicator(
                 password: password,
                 colors: const StrengthColors(
                   weak: Colors.orange,
@@ -62,7 +62,7 @@ class _FormPageState extends State<FormPage> {
               const SizedBox(height: 50),
               const Text('Custom colors'),
               const SizedBox(height: 8),
-              PasswordStrengthChecker(
+              PasswordStrengthIndicator(
                 password: password,
                 colors: const StrengthColors(
                   weak: Colors.orange,
@@ -76,7 +76,7 @@ class _FormPageState extends State<FormPage> {
               const SizedBox(height: 50),
               const Text('Custom sizes'),
               const SizedBox(height: 8),
-              PasswordStrengthChecker(
+              PasswordStrengthIndicator(
                 password: password,
                 thickness: 18,
                 radius: 0,
@@ -84,7 +84,7 @@ class _FormPageState extends State<FormPage> {
               const SizedBox(height: 50),
               const Text('Custom animation'),
               const SizedBox(height: 8),
-              PasswordStrengthChecker(
+              PasswordStrengthIndicator(
                 password: password,
                 duration: const Duration(milliseconds: 800),
                 curve: Curves.bounceOut,

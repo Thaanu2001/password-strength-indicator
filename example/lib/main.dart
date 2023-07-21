@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Password Strength Checker Demo',
+      title: 'Password Strength Indicator Demo',
       home: FormPage(),
     );
   }
