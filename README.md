@@ -1,5 +1,28 @@
 # password_strength_indicator
 
+<a href="https://github.com/Thaanu2001/password-strength-indicator/stargazers">
+<img src="https://img.shields.io/github/stars/Thaanu2001/password-strength-indicator?style=social" alt="flutter_draggable_gridview Git Stars">
+</a>
+<a href="https://developer.android.com" style="pointer-events: stroke;" target="_blank">
+<img src="https://img.shields.io/badge/platform-android-blue">
+</a>
+<a href="https://developer.apple.com/ios/" style="pointer-events: stroke;" target="_blank">
+<img src="https://img.shields.io/badge/platform-iOS-blue">
+</a>
+<a href="" style="pointer-events: stroke;" target="_blank">
+<img src="https://img.shields.io/badge/platform-Linux-blue">
+</a>
+<a href="" style="pointer-events: stroke;" target="_blank">
+<img src="https://img.shields.io/badge/platform-Mac-blue">
+</a>
+<a href="" style="pointer-events: stroke;" target="_blank">
+<img src="https://img.shields.io/badge/platform-web-blue">
+</a>
+<a href="" style="pointer-events: stroke;" target="_blank">
+<img src="https://img.shields.io/badge/platform-Windows-blue">
+</a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="MIT License"></a>
+
 A Flutter package to visually assess the strength of a password using a customizable strength bar.
 
 ## Features
