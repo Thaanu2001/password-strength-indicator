@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../password_strength_indicator.dart';
 
 class StrengthBarBackgroundPainter extends CustomPainter {
   // Background color of the strength bar

@@ -1,13 +1,16 @@
 library password_strength_indicator;
 
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-import 'painter/strength_bar_background_painter.dart';
-import 'painter/strength_bar_dashed_painter.dart';
-import 'painter/strength_bar_painter.dart';
-import 'password_strength/password_strength.dart';
-import 'util/strength_bar_style.dart';
-import 'util/strength_colors.dart';
+part 'painter/strength_bar_background_painter.dart';
+part 'painter/strength_bar_dashed_painter.dart';
+part 'painter/strength_bar_painter.dart';
+part 'password_strength/password_strength.dart';
+part 'util/strength_bar_style.dart';
+part 'util/strength_colors.dart';
+part 'password_strength/src/bruteforce.dart';
+part 'password_strength/src/common.dart';
 
 /// Password strength indicator widget for Flutter applications.
 /// It estimates the strength of the password and displays it in a strength bar.

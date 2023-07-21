@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../password_strength_indicator.dart';
 
 class StrengthBarDashedBarPainter extends CustomPainter {
   // Color of the strength bar

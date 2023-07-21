@@ -3,8 +3,7 @@
  * https://github.com/Pikaju/PasswordStrength
  */
 
-import 'src/bruteforce.dart';
-import 'src/common.dart';
+part of '../password_strength_indicator.dart';
 
 /// Estimates the strength of a password.
 /// Returns a [double] between `0.0` and `1.0`, inclusive.

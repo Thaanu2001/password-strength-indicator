@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../password_strength_indicator.dart';
 
 class StrengthBarPainter extends CustomPainter {
   // Color of the strength bar
@@ -37,7 +37,7 @@ class StrengthBarPainter extends CustomPainter {
     // Size of the bar
     double left = 0;
     double top = 0;
-    double right = size.width / 100 * percentage;
+    double right = size.width / 100 * (percentage >= 100 ? 100 : percentage);
     double bottom = size.height;
 
     if (radius != 0 && right > 0 && radius * 2 > right) {

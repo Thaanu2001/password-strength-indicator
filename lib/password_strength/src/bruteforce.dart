@@ -1,4 +1,4 @@
-import 'dart:math';
+part of '../../password_strength_indicator.dart';
 
 /// Estimates the strength of a password against a brute force attack.
 /// The passwords length as well as the characters use are taken into

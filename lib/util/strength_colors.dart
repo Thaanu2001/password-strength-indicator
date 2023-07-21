@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../password_strength_indicator.dart';
 
 class StrengthColors {
   // Colors for the strength bar

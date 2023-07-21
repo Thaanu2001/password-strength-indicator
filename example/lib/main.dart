@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+
 import 'package:password_strength_indicator/password_strength_indicator.dart';
-import 'package:password_strength_indicator/util/strength_bar_style.dart';
-import 'package:password_strength_indicator/util/strength_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,11 +9,9 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Password Strength Indicator Demo',
       home: FormPage(),
     );
@@ -44,68 +41,47 @@ class _FormPageState extends State<FormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Password field
               TextField(
                 decoration: const InputDecoration(hintText: 'Password'),
                 onChanged: (value) {
+                  // Update the password
                   setState(() {
                     password = value;
                   });
                 },
               ),
-              const SizedBox(height: 50),
-              const Text('Default style'),
-              const SizedBox(height: 8),
-              PasswordStrengthIndicator(
-                password: password,
-              ),
-              const SizedBox(height: 50),
-              const Text('Dashed style'),
-              const SizedBox(height: 8),
-              PasswordStrengthIndicator(
-                password: password,
-                style: StrengthBarStyle.dashed,
-              ),
-              const SizedBox(height: 50),
-              const Text('Custom colors'),
-              const SizedBox(height: 8),
-              PasswordStrengthIndicator(
-                password: password,
-                colors: const StrengthColors(
-                  weak: Colors.orange,
-                  medium: Colors.lightBlue,
-                  strong: Colors.lightGreen,
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: PasswordStrengthIndicator(
+                  password: password, // Password to be evaluated
+                  width: 500, // Change the width of the strength bar
+                  thickness: 12, // Change the thickness of the strength bar
+                  backgroundColor: Colors
+                      .grey, // Change the background color of the strength bar
+                  radius: 8, // Change the radius of the strength bar
+                  colors: const StrengthColors(
+                    // Customize the colors of the strength bar
+                    weak: Colors.orange,
+                    medium: Colors.yellow,
+                    strong: Colors.green,
+                  ),
+                  duration: const Duration(
+                      milliseconds: 300), // Set the animation duration
+                  curve: Curves.easeOut, // Set the animation curve
+                  callback: (double strength) {
+                    // Receive the strength value of the password
+                    print('Password Strength: $strength');
+                  },
+                  strengthBuilder: (String password) {
+                    // Implement a custom strength builder to calculate the strength based on your criteria
+                    // Return a value between 0.0 (too weak) and 1.0 (very strong)
+                    // Example:
+                    return password.length / 10;
+                  },
+                  style: StrengthBarStyle
+                      .line, // Choose a style for the strength bar
                 ),
-                backgroundColor: Colors.black,
-              ),
-              const SizedBox(height: 50),
-              const Text('Custom colors'),
-              const SizedBox(height: 8),
-              PasswordStrengthIndicator(
-                password: password,
-                colors: const StrengthColors(
-                  weak: Colors.orange,
-                  medium: Colors.lightBlue,
-                  strong: Colors.lightGreen,
-                ),
-                style: StrengthBarStyle.dashed,
-                backgroundColor: Colors.black,
-                thickness: 15,
-              ),
-              const SizedBox(height: 50),
-              const Text('Custom sizes'),
-              const SizedBox(height: 8),
-              PasswordStrengthIndicator(
-                password: password,
-                thickness: 18,
-                radius: 0,
-              ),
-              const SizedBox(height: 50),
-              const Text('Custom animation'),
-              const SizedBox(height: 8),
-              PasswordStrengthIndicator(
-                password: password,
-                duration: const Duration(milliseconds: 800),
-                curve: Curves.bounceOut,
               ),
             ],
           ),
