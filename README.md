@@ -1,39 +1,70 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# password_strength_indicator
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Flutter package to visually assess the strength of a password using a customizable strength bar.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Visual representation of password strength using a strength bar.
+- Customize the width, thickness, radius, and colors of the strength bar.
+- Control the animation duration and curve for a smooth user experience.
+- Define a callback function to receive the strength value of the password.
+- Implement a custom strength builder to calculate the strength of the password based on your own criteria.
+- Choose from different styles for the appearance of the strength bar.
 
-## Getting started
+## Screenshots
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+![ezgif-4-372e53535f](https://github.com/Thaanu2001/password-strength-indicator/assets/55238280/97d90212-972b-4a76-af1a-9fd425cdc984)
+
+## Installation
+
+To use this package, add `password_strength_indicator` as a dependency in your `pubspec.yaml` file.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Import the package:
 
 ```dart
-const like = 'sample';
+import 'package:password_strength_indicator/password_strength_indicator.dart';
 ```
 
-## Additional information
+To use the `PasswordStrengthChecker` widget, simply provide the desired parameters:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+PasswordStrengthChecker(
+  width: 200, // Change the width of the strength bar
+  thickness: 12, // Change the thickness of the strength bar
+  backgroundColor: Colors.grey, // Change the background color of the strength bar
+  radius: 8, // Change the radius of the strength bar
+  colors: StrengthColors(
+    // Customize the colors of the strength bar
+    weak: Colors.orange,
+    medium: Colors.yellow,
+    strong: Colors.green,
+  ),
+  duration: Duration(milliseconds: 300), // Set the animation duration
+  curve: Curves.easeOut, // Set the animation curve
+  callback: (double strength) {
+    // Receive the strength value of the password
+    print('Password Strength: $strength');
+  },
+  strengthBuilder: (String password) {
+    // Implement a custom strength builder to calculate the strength based on your criteria
+    // Return a value between 0.0 (too weak) and 1.0 (very strong)
+    // Example:
+    return password.length / 10;
+  },
+  style: StrengthBarStyle.line, // Choose a style for the strength bar
+),
+```
+
+## Contribution
+
+Contributions to this package are welcome! If you find a bug or have any suggestions, feel free to open an issue or submit a pull request on the [GitHub repository](https://github.com/Thaanu2001/password-strength-indicator).
+
+## License
+
+This package is released under the MIT License. See [LICENSE](LICENSE) for details.
+
+**Developed with ❤️ by Thaanu Perera**
+
+If you find this package helpful, consider giving it a ⭐ on pub.dev. Happy coding!
