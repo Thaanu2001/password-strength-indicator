@@ -93,4 +93,4 @@ This package is released under the MIT License. See [LICENSE](LICENSE) for detai
 
 **Developed with ❤️ by Thaanu Perera**
 
-If you find this package helpful, consider giving it a ⭐ on pub.dev. Happy coding!
+If you find this package helpful, consider giving it a ⭐ on [pub.dev](https://pub.dev/packages/password_strength_indicator). Happy coding!
