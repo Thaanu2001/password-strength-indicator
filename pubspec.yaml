@@ -1,6 +1,6 @@
 name: password_strength_indicator
 description: A Flutter package to visually assess the strength of a password using a customizable strength bar.
-version: 1.0.0+1
+version: 1.0.1
 homepage: https://github.com/Thaanu2001/password-strength-indicator
 
 environment:
